@@ -34,7 +34,7 @@ class _RegistViewState extends State<RegistView> {
       ),
       child: Container(
         height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width - 10,
+        width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20),

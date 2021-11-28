@@ -29,6 +29,17 @@ class DetailView extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    onPressed: Get.back,
+                    icon: const Icon(
+                      Icons.close,
+                      color: Color(0xffecb142),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
                 AspectRatio(
                   aspectRatio: 1 / 1,
                   child: FutureBuilder(

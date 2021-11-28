@@ -107,6 +107,8 @@ class HomeView extends StatelessWidget {
                         const SizedBox(height: 5),
                         Text(
                           data['name'],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
