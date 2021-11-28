@@ -22,8 +22,8 @@ class DetailView extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Container(
-        height: MediaQuery.of(context).size.height / 4 * 3,
-        width: MediaQuery.of(context).size.width - 30,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20),
