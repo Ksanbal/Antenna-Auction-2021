@@ -35,24 +35,19 @@
   <!-- firebase -->
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+  <script>
+    var firebaseConfig = {
       apiKey: "AIzaSyBr4cPcWeSgtkIje28Zo7JA3agPJT4sWdQ",
       authDomain: "antenna-auction-2021.firebaseapp.com",
       projectId: "antenna-auction-2021",
       storageBucket: "antenna-auction-2021.appspot.com",
       messagingSenderId: "950754356309",
-      appId: "1:950754356309:web:7a65a21505d414683f78dc"
+      appId: "1:950754356309:web:4276bc149963bc083f78dc"
     };
 
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
   </script>
 
   <!-- This script installs service_worker.js to provide PWA functionality to
