@@ -17,19 +17,29 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffecb142).withOpacity(0.1),
       appBar: AppBar(
-        title: const Text("안테나의 애장품"),
+        title: const Text(
+          "안테나의 애장품",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         backgroundColor: const Color(0xffecb142),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Get.bottomSheet(const RegistView()),
+        onPressed: () => Get.dialog(RegistView(), barrierDismissible: false),
         label: const Text(
           "추가하기",
           style: TextStyle(
+            color: Colors.white,
             fontSize: 15,
             fontWeight: FontWeight.bold,
           ),
         ),
-        icon: const Icon(Icons.camera_alt_outlined),
+        icon: const Icon(
+          Icons.camera_alt_outlined,
+          color: Colors.white,
+        ),
         backgroundColor: const Color(0xffecb142),
       ),
       body: StreamBuilder<QuerySnapshot>(
