@@ -1,3 +1,4 @@
+import 'package:antenna_auction_2021/src/view/detail.view.dart';
 import 'package:antenna_auction_2021/src/view/regist.view.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,13 +15,22 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffecb142).withOpacity(0.1),
       appBar: AppBar(
         title: const Text("안테나의 애장품"),
+        backgroundColor: const Color(0xffecb142),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Get.bottomSheet(const RegistView()),
-        label: const Text("추가하기"),
-        icon: const Icon(Icons.add),
+        label: const Text(
+          "추가하기",
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        icon: const Icon(Icons.camera_alt_outlined),
+        backgroundColor: const Color(0xffecb142),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _itemStream,
@@ -40,6 +50,7 @@ class HomeView extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
             child: GridView.count(
+              childAspectRatio: 3 / 4,
               crossAxisCount: 2,
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
@@ -49,7 +60,10 @@ class HomeView extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => Get.dialog(
+                      DetailView(),
+                      arguments: data,
+                    ),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
                       shape: RoundedRectangleBorder(
@@ -60,23 +74,27 @@ class HomeView extends StatelessWidget {
                     child: Column(
                       children: [
                         Expanded(
-                          child: FutureBuilder(
-                            future: ref.getDownloadURL(),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (snapshot.hasData == false) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else {
-                                return Image.network(
-                                  snapshot.data,
-                                  fit: BoxFit.fitWidth,
-                                );
-                              }
-                            },
+                          child: AspectRatio(
+                            aspectRatio: 1 / 1,
+                            child: FutureBuilder(
+                              future: ref.getDownloadURL(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.hasData == false) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else {
+                                  return Image.network(
+                                    snapshot.data,
+                                    fit: BoxFit.fitHeight,
+                                  );
+                                }
+                              },
+                            ),
                           ),
                         ),
+                        const SizedBox(height: 5),
                         Text(
                           data['name'],
                           style: const TextStyle(
