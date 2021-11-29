@@ -65,7 +65,7 @@ class HomeView extends StatelessWidget {
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
-                final ref = _storage.ref().child(data['image']);
+                final ref = _storage.ref().child(data['image'][0]);
 
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -97,7 +97,7 @@ class HomeView extends StatelessWidget {
                                 } else {
                                   return Image.network(
                                     snapshot.data,
-                                    fit: BoxFit.fitHeight,
+                                    fit: BoxFit.cover,
                                   );
                                 }
                               },

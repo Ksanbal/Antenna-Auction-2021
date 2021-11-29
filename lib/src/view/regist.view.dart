@@ -16,8 +16,12 @@ class RegistView extends StatefulWidget {
 class _RegistViewState extends State<RegistView> {
   final picker = ImagePicker();
   XFile? image;
-  String? image_name;
-  String? image_url;
+  String? image_name_1;
+  String? image_url_1;
+  String? image_name_2;
+  String? image_url_2;
+  String? image_name_3;
+  String? image_url_3;
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _writerController = TextEditingController();
@@ -51,38 +55,160 @@ class _RegistViewState extends State<RegistView> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                AspectRatio(
-                  aspectRatio: 1 / 1,
-                  child: (image_url == null)
-                      ? Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              width: 1,
-                              color: const Color(0xffecb142),
-                            ),
-                          ),
-                          child: IconButton(
-                            onPressed: () async {
-                              image = await picker.pickImage(
-                                  source: ImageSource.gallery);
-                              Uint8List bytes = await image!.readAsBytes();
-                              image_name = "${DateTime.now()}.png";
-                              Reference ref = FirebaseStorage.instance
-                                  .ref()
-                                  .child(image_name!);
-                              UploadTask uploadTask = ref.putData(bytes,
-                                  SettableMetadata(contentType: 'image/png'));
-                              TaskSnapshot taskSnapshot = await uploadTask
-                                  .whenComplete(() => print('done'))
-                                  .catchError((error) => print("error...:("));
-                              image_url =
-                                  await taskSnapshot.ref.getDownloadURL();
-                              setState(() {});
-                            },
-                            icon: Icon(Icons.camera_alt_outlined),
-                          ))
-                      : Image.network(image_url!, fit: BoxFit.fitHeight),
+                // AspectRatio(
+                //   aspectRatio: 1 / 1,
+                //   child: (image_url == null)
+                //       ? Container(
+                //           decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(15),
+                //             border: Border.all(
+                //               width: 1,
+                //               color: const Color(0xffecb142),
+                //             ),
+                //           ),
+                //           child: IconButton(
+                //             onPressed: () async {
+                //               image = await picker.pickImage(
+                //                   source: ImageSource.gallery);
+                //               Uint8List bytes = await image!.readAsBytes();
+                //               image_name = "${DateTime.now()}.png";
+                //               Reference ref = FirebaseStorage.instance
+                //                   .ref()
+                //                   .child(image_name!);
+                //               UploadTask uploadTask = ref.putData(bytes,
+                //                   SettableMetadata(contentType: 'image/png'));
+                //               TaskSnapshot taskSnapshot = await uploadTask
+                //                   .catchError((error) => print("error...:("));
+                //               image_url =
+                //                   await taskSnapshot.ref.getDownloadURL();
+                //               setState(() {});
+                //             },
+                //             icon: Icon(Icons.camera_alt_outlined),
+                //           ))
+                //       : Image.network(image_url!, fit: BoxFit.fitHeight),
+                // ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: (image_url_1 == null)
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: const Color(0xffecb142),
+                                  ),
+                                ),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    image = await picker.pickImage(
+                                        source: ImageSource.gallery);
+                                    Uint8List bytes =
+                                        await image!.readAsBytes();
+                                    image_name_1 = "${DateTime.now()}.png";
+                                    Reference ref = FirebaseStorage.instance
+                                        .ref()
+                                        .child(image_name_1!);
+                                    UploadTask uploadTask = ref.putData(
+                                        bytes,
+                                        SettableMetadata(
+                                            contentType: 'image/png'));
+                                    TaskSnapshot taskSnapshot =
+                                        await uploadTask.catchError(
+                                            (error) => print("error...:("));
+                                    image_url_1 =
+                                        await taskSnapshot.ref.getDownloadURL();
+                                    setState(() {});
+                                  },
+                                  icon: Icon(Icons.camera_alt_outlined),
+                                ))
+                            : Image.network(image_url_1!,
+                                fit: BoxFit.fitHeight),
+                      ),
+                    ),
+                    SizedBox(width: 2),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: (image_url_2 == null)
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: const Color(0xffecb142),
+                                  ),
+                                ),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    image = await picker.pickImage(
+                                        source: ImageSource.gallery);
+                                    Uint8List bytes =
+                                        await image!.readAsBytes();
+                                    image_name_2 = "${DateTime.now()}.png";
+                                    Reference ref = FirebaseStorage.instance
+                                        .ref()
+                                        .child(image_name_2!);
+                                    UploadTask uploadTask = ref.putData(
+                                        bytes,
+                                        SettableMetadata(
+                                            contentType: 'image/png'));
+                                    TaskSnapshot taskSnapshot =
+                                        await uploadTask.catchError(
+                                            (error) => print("error...:("));
+                                    image_url_2 =
+                                        await taskSnapshot.ref.getDownloadURL();
+                                    setState(() {});
+                                  },
+                                  icon: Icon(Icons.camera_alt_outlined),
+                                ))
+                            : Image.network(image_url_2!,
+                                fit: BoxFit.fitHeight),
+                      ),
+                    ),
+                    SizedBox(width: 2),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: (image_url_3 == null)
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: const Color(0xffecb142),
+                                  ),
+                                ),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    image = await picker.pickImage(
+                                        source: ImageSource.gallery);
+                                    Uint8List bytes =
+                                        await image!.readAsBytes();
+                                    image_name_3 = "${DateTime.now()}.png";
+                                    Reference ref = FirebaseStorage.instance
+                                        .ref()
+                                        .child(image_name_3!);
+                                    UploadTask uploadTask = ref.putData(
+                                        bytes,
+                                        SettableMetadata(
+                                            contentType: 'image/png'));
+                                    TaskSnapshot taskSnapshot =
+                                        await uploadTask.catchError(
+                                            (error) => print("error...:("));
+                                    image_url_3 =
+                                        await taskSnapshot.ref.getDownloadURL();
+                                    setState(() {});
+                                  },
+                                  icon: Icon(Icons.camera_alt_outlined),
+                                ))
+                            : Image.network(image_url_3!,
+                                fit: BoxFit.fitHeight),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 Form(
@@ -161,18 +287,36 @@ class _RegistViewState extends State<RegistView> {
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
+                    bool hasImage = (image_name_1 != null) ||
+                        (image_name_2 != null) ||
+                        (image_name_3 != null);
                     _nameFormKey.currentState!.validate();
                     _writerFormKey.currentState!.validate();
                     _desFormKey.currentState!.validate();
+
                     if (_nameFormKey.currentState!.validate() &&
                         _writerFormKey.currentState!.validate() &&
                         _desFormKey.currentState!.validate() &&
-                        image_url != null) {
-                      FirebaseFirestore.instance.collection('items').add({
+                        hasImage) {
+                      List<String> image_list = [];
+                      if (image_name_1 != null) {
+                        image_list.add(image_name_1!);
+                      }
+                      if (image_name_2 != null) {
+                        image_list.add(image_name_2!);
+                      }
+                      if (image_name_3 != null) {
+                        image_list.add(image_name_3!);
+                      }
+
+                      FirebaseFirestore.instance
+                          .collection('items')
+                          .doc(DateTime.now().toString())
+                          .set({
                         "name": _nameController.text,
                         "writer": _writerController.text,
                         "description": _desController.text,
-                        "image": image_name,
+                        "image": image_list,
                       });
                       Get.back();
                     }

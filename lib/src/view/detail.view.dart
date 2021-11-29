@@ -10,12 +10,15 @@ class DetailView extends StatelessWidget {
       firebase_storage.FirebaseStorage.instance;
 
   late Map<String, dynamic> _data;
-  // late Stream<DocumentSnapshot> _item;
+  final PageController _pageController = PageController(
+    initialPage: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
     _data = Get.arguments as Map<String, dynamic>;
-    final ref = _storage.ref().child(_data['image']);
+    // final ref = _storage.ref().child(_data['image']);
+    List<dynamic> image_list = _data['image'];
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -42,20 +45,48 @@ class DetailView extends StatelessWidget {
                 const SizedBox(height: 10),
                 AspectRatio(
                   aspectRatio: 1 / 1,
-                  child: FutureBuilder(
-                    future: ref.getDownloadURL(),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.hasData == false) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return Image.network(
-                          snapshot.data,
-                          fit: BoxFit.fitHeight,
-                        );
-                      }
-                    },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      PageView(
+                          controller: _pageController,
+                          children: image_list.map(
+                            (e) {
+                              final ref = _storage.ref().child(e);
+                              return FutureBuilder(
+                                future: ref.getDownloadURL(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData == false) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else {
+                                    return Image.network(
+                                      snapshot.data,
+                                      fit: BoxFit.cover,
+                                    );
+                                  }
+                                },
+                              );
+                            },
+                          ).toList()),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
+                            Icons.arrow_back_ios,
+                            color: Color(0xffecb142),
+                            size: 20,
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Color(0xffecb142),
+                            size: 20,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 10),
