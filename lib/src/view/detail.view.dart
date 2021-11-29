@@ -1,5 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:antenna_auction_2021/src/view/delete.view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
@@ -111,6 +112,20 @@ class DetailView extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 15,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: IconButton(
+                    onPressed: () => Get.dialog(
+                      DeleteView(),
+                      arguments: _data,
+                    ),
+                    icon: const Icon(
+                      Icons.delete_outline,
+                      color: Color(0xffecb142),
+                    ),
                   ),
                 ),
               ],
