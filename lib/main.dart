@@ -39,7 +39,9 @@ class _AppState extends State<App> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              fontFamily: 'Jua',
               primarySwatch: const MaterialColor(
                 0xFFFFFFFF,
                 const <int, Color>{

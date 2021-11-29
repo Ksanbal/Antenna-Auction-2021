@@ -18,12 +18,22 @@ class HomeView extends StatelessWidget {
       backgroundColor: const Color(0xffecb142).withOpacity(0.1),
       appBar: AppBar(
         title: const Text(
-          "안테나의 애장품",
+          "2021 안테나 마켓",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
+        actions: [
+          Text(
+            "create by dev.ksanbal",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+            ),
+          ),
+        ],
+        elevation: 0,
         backgroundColor: const Color(0xffecb142),
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -70,10 +80,13 @@ class HomeView extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: ElevatedButton(
-                    onPressed: () => Get.dialog(
-                      DetailView(),
-                      arguments: data,
-                    ),
+                    onPressed: () {
+                      data['id'] = document.id;
+                      Get.dialog(
+                        DetailView(),
+                        arguments: data,
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
                       shape: RoundedRectangleBorder(
