@@ -1,11 +1,11 @@
 {
-    "name": "antenna_auction_2021",
-    "short_name": "antenna_auction_2021",
+    "name": "2021 안테나 마켓",
+    "short_name": "2021 안테나 마켓",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "2021 서초구자원봉사센터 착한안테나의 연말간담회를 위한 안테나 마켓입니다.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
