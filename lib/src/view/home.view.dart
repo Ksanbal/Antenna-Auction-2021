@@ -17,6 +17,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffecb142).withOpacity(0.1),
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           "2021 안테나 마켓",
           style: TextStyle(
@@ -67,11 +68,23 @@ class HomeView extends StatelessWidget {
             );
           }
 
+          int responsiveCrossAxisCount;
+
+          if (MediaQuery.of(context).size.width >= 1920) {
+            responsiveCrossAxisCount = 5;
+          } else if (MediaQuery.of(context).size.width >= 1500) {
+            responsiveCrossAxisCount = 4;
+          } else if (MediaQuery.of(context).size.width >= 1000) {
+            responsiveCrossAxisCount = 3;
+          } else {
+            responsiveCrossAxisCount = 2;
+          }
+
           return Padding(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
             child: GridView.count(
               childAspectRatio: 3 / 4,
-              crossAxisCount: 2,
+              crossAxisCount: responsiveCrossAxisCount,
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
