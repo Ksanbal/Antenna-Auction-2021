@@ -16,6 +16,9 @@ class RegistView extends StatefulWidget {
 class _RegistViewState extends State<RegistView> {
   final picker = ImagePicker();
   XFile? image;
+  Uint8List? bytes1;
+  Uint8List? bytes2;
+  Uint8List? bytes3;
   String? image_name_1;
   String? image_url_1;
   String? image_name_2;
@@ -66,12 +69,12 @@ class _RegistViewState extends State<RegistView> {
                           onTap: () async {
                             image = await picker.pickImage(
                                 source: ImageSource.gallery);
-                            Uint8List bytes = await image!.readAsBytes();
+                            bytes1 = await image!.readAsBytes();
                             image_name_1 = "${DateTime.now()}.png";
                             Reference ref = FirebaseStorage.instance
                                 .ref()
                                 .child(image_name_1!);
-                            UploadTask uploadTask = ref.putData(bytes,
+                            UploadTask uploadTask = ref.putData(bytes1!,
                                 SettableMetadata(contentType: 'image/png'));
                             TaskSnapshot taskSnapshot = await uploadTask
                                 .catchError((error) => print("error...:("));
@@ -126,12 +129,12 @@ class _RegistViewState extends State<RegistView> {
                           onTap: () async {
                             image = await picker.pickImage(
                                 source: ImageSource.gallery);
-                            Uint8List bytes = await image!.readAsBytes();
+                            bytes2 = await image!.readAsBytes();
                             image_name_2 = "${DateTime.now()}.png";
                             Reference ref = FirebaseStorage.instance
                                 .ref()
                                 .child(image_name_2!);
-                            UploadTask uploadTask = ref.putData(bytes,
+                            UploadTask uploadTask = ref.putData(bytes2!,
                                 SettableMetadata(contentType: 'image/png'));
                             TaskSnapshot taskSnapshot = await uploadTask
                                 .catchError((error) => print("error...:("));
@@ -182,12 +185,12 @@ class _RegistViewState extends State<RegistView> {
                           onTap: () async {
                             image = await picker.pickImage(
                                 source: ImageSource.gallery);
-                            Uint8List bytes = await image!.readAsBytes();
+                            bytes3 = await image!.readAsBytes();
                             image_name_3 = "${DateTime.now()}.png";
                             Reference ref = FirebaseStorage.instance
                                 .ref()
                                 .child(image_name_3!);
-                            UploadTask uploadTask = ref.putData(bytes,
+                            UploadTask uploadTask = ref.putData(bytes3!,
                                 SettableMetadata(contentType: 'image/png'));
                             TaskSnapshot taskSnapshot = await uploadTask
                                 .catchError((error) => print("error...:("));
@@ -335,7 +338,7 @@ class _RegistViewState extends State<RegistView> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     bool hasImage = (image_name_1 != null) ||
                         (image_name_2 != null) ||
                         (image_name_3 != null);
@@ -349,17 +352,32 @@ class _RegistViewState extends State<RegistView> {
                         _desFormKey.currentState!.validate() &&
                         _pwFormKey.currentState!.validate() &&
                         hasImage) {
-                      List<String> image_list = [];
-                      if (image_name_1 != null) {
-                        image_list.add(image_name_1!);
-                      }
-                      if (image_name_2 != null) {
-                        image_list.add(image_name_2!);
-                      }
-                      if (image_name_3 != null) {
-                        image_list.add(image_name_3!);
+                      // upload된 이미지 삭제
+                      for (var url in [image_url_1, image_url_2, image_url_3]) {
+                        if (url != null) {
+                          FirebaseStorage.instance.refFromURL(url).delete();
+                        }
                       }
 
+                      // writer 이름 포함해서 재업로드
+                      List<String> image_list = [];
+                      List<Uint8List?> images = [bytes1, bytes2, bytes3];
+                      for (var image in [bytes1, bytes2, bytes3]) {
+                        if (image != null) {
+                          String temp_image_name =
+                              "${_writerController.text} - ${DateTime.now()}.png";
+                          Reference ref = FirebaseStorage.instance
+                              .ref()
+                              .child(temp_image_name);
+                          UploadTask uploadTask = ref.putData(image,
+                              SettableMetadata(contentType: 'image/png'));
+                          await uploadTask
+                              .catchError((error) => print("error...:("));
+                          image_list.add(temp_image_name);
+                        }
+                      }
+
+                      // firestore에 저장
                       FirebaseFirestore.instance
                           .collection('items')
                           .doc(DateTime.now().toString())
