@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -72,6 +73,11 @@ class DeleteView extends StatelessWidget {
                       .collection('items')
                       .doc(_data['id'])
                       .delete();
+
+                  for (dynamic image in _data['image']) {
+                    FirebaseStorage.instance.ref().child(image).delete();
+                  }
+
                   Get.back();
                   Get.back();
                 }
